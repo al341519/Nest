@@ -17,7 +17,8 @@ public class dash : MonoBehaviour
     readonly float[] ATTACKDMG = { 5, 5, 10 };
 
     const float MOVEMENTSPEED = 0.1f;
-    
+
+    Vector3 velocity = Vector3.zero;
 
     private float dashTimer;
     private bool dashing;
@@ -52,10 +53,12 @@ public class dash : MonoBehaviour
     void Update()
     {
         CheckCdHabilities();
+        Debug.DrawRay(transform.position, transform.right*sizeX/2);
 
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashing == false && attacking == false) {
-            finalDashPosition = useDash(direction);                                                                          //Obtiene la posición final tras el dash
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashed == false && attacking == false) {
+            finalDashPosition = useDash(direction);                                                                 //Obtiene la posición final tras el dash
             if (finalDashPosition != transform.position )
             {
                 StartCoroutine(MoveFromTo(transform, transform.position, finalDashPosition, DASHSPEED));            //Mueve personaje mediante el dash
@@ -84,29 +87,13 @@ public class dash : MonoBehaviour
         if(Input.GetAxis("Horizontal") != 0)
         {
             direction = Input.GetAxis("Horizontal");
-            
-            Vector3 position;
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.right, out hit, sizeX / 2, LayerMask.GetMask(WALLLAYER)) && direction<0)
-            {
-                position = hit.transform.position;
-                position.x = position.x - sizeX/2;
-                position.y = transform.position.y;
-                transform.position = position;
-            }
-            else if (Physics.Raycast(transform.position, -transform.right, out hit, sizeX/2, LayerMask.GetMask(WALLLAYER)) && direction>0)
-            {
-                position = hit.transform.position;
-                position.x = position.x + sizeX/2;
-                position.y = transform.position.y;
-                transform.position = position;
-            }
-            else
-            {
-                position = transform.position;
-                position.x += Input.GetAxis("Horizontal") * MOVEMENTSPEED;
-                transform.position = position;
-            }
+            velocity.x = Input.GetAxis("Horizontal") * 0.1f;
+
+            rigibody.position = rigibody.position + velocity;
+        }
+        else
+        {
+            velocity.x = 0;
         }
 
 
@@ -133,7 +120,7 @@ public class dash : MonoBehaviour
             return position;
         }
         else {
-            if (Physics.Raycast(transform.position, -transform.right, out hit, DASHDISTANCE - sizeX, LayerMask.GetMask(WALLLAYER)))
+            if (Physics.Raycast(transform.position, -transform.right, out hit, DASHDISTANCE - sizeX/2, LayerMask.GetMask(WALLLAYER)))
             {
                 position = hit.transform.position;
                 position.x = position.x + sizeX;
