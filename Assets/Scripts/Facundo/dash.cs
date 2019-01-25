@@ -120,7 +120,7 @@ public class dash : MonoBehaviour
             return position;
         }
         else {
-            if (Physics.Raycast(transform.position, -transform.right, out hit, DASHDISTANCE - sizeX/2, LayerMask.GetMask(WALLLAYER)))
+            if (Physics.Raycast(transform.position, -transform.right, out hit, DASHDISTANCE + sizeX/2, LayerMask.GetMask(WALLLAYER)))
             {
                 position = hit.transform.position;
                 position.x = position.x + sizeX;
