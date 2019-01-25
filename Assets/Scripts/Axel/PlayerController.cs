@@ -30,7 +30,9 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             velocity.y = jumpSpeed;
         }
-        velocity.x = Input.GetAxis("Horizontal") * speed;
+        Vector3 desiredPosition = transform.position;
+        desiredPosition.x += Input.GetAxis("Horizontal") * speed;
+        StartCoroutine(MoveFromTo(transform, transform.position, desiredPosition, 10));
 
         rb.position = rb.position + velocity;
     }
@@ -41,5 +43,18 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0f;
             grounded = true;
         }
+    }
+    IEnumerator MoveFromTo(Transform objectToMove, Vector3 a, Vector3 b, float speed)
+    {
+        float step = (speed / (a - b).magnitude) * Time.fixedDeltaTime;
+        float t = 0;
+        while (t <= 1.0f)
+        {
+            t += step; // Goes from 0 to 1, incrementing by step each time
+            objectToMove.position = Vector3.Lerp(a, b, t); // Move objectToMove closer to b
+            yield return new WaitForFixedUpdate();         // Leave the routine and return here in the next frame
+        }
+        objectToMove.position = b;
+
     }
 }
