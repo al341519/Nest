@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = 0;// maxHealth;
+        currentHealth = maxHealth;// maxHealth;
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x;
         grounded = true;
         CharCtrl = GetComponent<CharacterController>();
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         gameOver = false;
         dValue = 2;
         currentMat = GetComponent<MeshRenderer>().material;
-        receiveDamage(1);
+        //receiveDamage(1);
 
     }
 
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         if (gameOver)
         {
             dValue -= Time.deltaTime;
-            currentMat.SetFloat("DissolveValue", dValue);
+           // currentMat.SetFloat("DissolveValue", dValue);
             if (dValue <= -0.2)
             {
                 //pantalla gameover
@@ -351,7 +351,7 @@ public class PlayerController : MonoBehaviour
             currentHealth -= damage;
             if (currentHealth <= 0)
             { 
-                currentMat = dissolveMat;
+    //            currentMat = dissolveMat;
                 gameOver = true;
             }
             StopCoroutine("DoAttacks");
