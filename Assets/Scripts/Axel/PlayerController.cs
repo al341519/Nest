@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private List<Collider> enemies;
 
+    public bool menu; 
+
 
     public float speed = 0.1f;
     public float jumpSpeed = 0.07f;
@@ -56,12 +58,13 @@ public class PlayerController : MonoBehaviour
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x;
         grounded = true;
         CharCtrl = GetComponent<CharacterController>();
-
+        menu = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(menu) { return; }
         CheckCdHabilities();
         Debug.DrawRay(transform.position, transform.right * (sizeX / 2));
         Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);
