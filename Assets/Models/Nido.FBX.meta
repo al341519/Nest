@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: b462a1742eb8c4641a94cf80433c72d7
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Torus001
+    100004: Torus002
+    100006: Torus003
+    100008: Torus004
+    100010: Torus005
+    100012: Torus006
+    100014: Torus007
+    100016: Torus008
+    100018: Torus009
+    100020: Torus010
+    100022: Torus011
+    100024: Torus012
+    100026: Torus013
+    100028: Torus014
+    100030: Torus015
+    100032: Torus016
+    400000: //RootNode
+    400002: Torus001
+    400004: Torus002
+    400006: Torus003
+    400008: Torus004
+    400010: Torus005
+    400012: Torus006
+    400014: Torus007
+    400016: Torus008
+    400018: Torus009
+    400020: Torus010
+    400022: Torus011
+    400024: Torus012
+    400026: Torus013
+    400028: Torus014
+    400030: Torus015
+    400032: Torus016
+    2100000: No Name
+    2300000: Torus001
+    2300002: Torus002
+    2300004: Torus003
+    2300006: Torus004
+    2300008: Torus005
+    2300010: Torus006
+    2300012: Torus007
+    2300014: Torus008
+    2300016: Torus009
+    2300018: Torus010
+    2300020: Torus011
+    2300022: Torus012
+    2300024: Torus013
+    2300026: Torus014
+    2300028: Torus015
+    2300030: Torus016
+    3300000: Torus001
+    3300002: Torus002
+    3300004: Torus003
+    3300006: Torus004
+    3300008: Torus005
+    3300010: Torus006
+    3300012: Torus007
+    3300014: Torus008
+    3300016: Torus009
+    3300018: Torus010
+    3300020: Torus011
+    3300022: Torus012
+    3300024: Torus013
+    3300026: Torus014
+    3300028: Torus015
+    3300030: Torus016
+    4300000: Torus001
+    4300002: Torus002
+    4300004: Torus003
+    4300006: Torus004
+    4300008: Torus005
+    4300010: Torus006
+    4300012: Torus007
+    4300014: Torus008
+    4300016: Torus009
+    4300018: Torus010
+    4300020: Torus011
+    4300022: Torus012
+    4300024: Torus013
+    4300026: Torus014
+    4300028: Torus015
+    4300030: Torus016
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
