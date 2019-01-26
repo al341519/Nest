@@ -13,14 +13,11 @@ public class PlayerController : MonoBehaviour
     const float ATTACKDURATION2 = 1;                //Tiempo que tarda la animación de ataque 2
     const float ATTACKDURATION3 = 1;                //Tiempo que tarda la animación de ataque 3
     const float DMGTICKTIME = 0.2f;                 //Tiempo que tarda la animación en "aplicar el daño"
-    float[] attackDmg = { 5, 5, 10 };
-
+    readonly float[] ATTACKDMG = { 5, 5, 10 };
 
     const float MOVEMENTSPEED = 0.1f;
-    float maxHealth = 40;
-    float currentHealth;
 
-   Vector3 velocity = Vector3.zero;
+    Vector3 velocity = Vector3.zero;
 
     private float dashTimer;
     private bool dashing;
@@ -48,7 +45,9 @@ public class PlayerController : MonoBehaviour
     // protected Rigidbody rb;
     protected CharacterController CharCtrl;
 
-    public bool menu;
+    private static int resourceLeaf;
+    private static int resourceBranch;
+
 
 
     // Start is called before the first frame update
@@ -57,18 +56,15 @@ public class PlayerController : MonoBehaviour
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x;
         grounded = true;
         CharCtrl = GetComponent<CharacterController>();
-        menu = false;
-        currentHealth = maxHealth;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (menu) return;
         CheckCdHabilities();
-
         Debug.DrawRay(transform.position, transform.right * (sizeX / 2));
-        Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);  
+        Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);
 
 
 
@@ -104,15 +100,15 @@ public class PlayerController : MonoBehaviour
         if (dashing == false)
         {
             Vector3 move = Vector3.zero;
-            velocity = Vector3.zero;
-            //velocity.x = 0f;
+            velocity.x = 0f;
             if (!attacking)
             {
                 if (Input.GetAxis("Horizontal") != 0)
                 {
-                    
+
                     direction = Input.GetAxis("Horizontal");
-                    if (direction > 0) {
+                    if (direction > 0)
+                    {
                         Quaternion rotation = transform.rotation;
                         rotation.y = 0;
                         transform.rotation = rotation;
@@ -135,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 grounded = false;
                 velocity.y = jumpSpeed;
             }
-           
+
             if (!grounded)
             {
                 velocity.y -= gravity * Time.deltaTime;
@@ -161,10 +157,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log(position.x);
             if (value >= 0)
             {
-                position.x = position.x - sizeX/2;
+                position.x = position.x - sizeX / 2;
             }
             else {
-                position.x = position.x + sizeX/2;
+                position.x = position.x + sizeX / 2;
             }
             position.y = transform.position.y;
             return (position);
@@ -231,7 +227,7 @@ public class PlayerController : MonoBehaviour
         List<Collider> deadEnemies = new List<Collider>();
         foreach (Collider enemy in enemies)
         {
-            if (enemy.gameObject.GetComponent<Enemy>().receiveDmg(attackDmg[attack - 1]))           //Inflinge al enemigo la cantidad de daño apropiada al ataque attack
+            if (enemy.gameObject.GetComponent<Enemy>().receiveDmg(ATTACKDMG[attack - 1]))           //Inflinge al enemigo la cantidad de daño apropiada al ataque attack
             {
                 deadEnemies.Add(enemy);
             };
@@ -273,17 +269,16 @@ public class PlayerController : MonoBehaviour
         dashing = false;
         dashed = true;
     }
-
-    public void IncreaseDamage(int value)
+    public void setResource(string res, int ammount)
     {
-        for(int i = 0; i < attackDmg.Length ; i++) {
-            attackDmg[i] += value;
+        if (res == "leaf")
+        {
+            resourceLeaf += ammount;
+        }
+        else if (res == "branch")
+        {
+            resourceBranch += ammount;
         }
     }
+}
 
-    public void IncreaseHealth(int value)
-    {
-        maxHealth += value;
-    }
-
- }
