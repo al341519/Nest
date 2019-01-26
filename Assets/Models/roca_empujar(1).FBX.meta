@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 2c6014bb7e661d047868aaef2c6abda8
+guid: 707bcaccbe919a04c983434bdd518ab6
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: defaultMat
+    2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: ZBrush_defualt_group
+    4300000: Box001
   externalObjects: {}
   materials:
     importMaterials: 1
