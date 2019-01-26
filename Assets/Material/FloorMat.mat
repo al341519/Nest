@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_899077FB:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -105,6 +109,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_10F9601: 7.68
+    - Vector1_AB81A2DE: 0
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -215,8 +220,9 @@ Material:
     - _ZTestModeDistortion: 8
     - _ZWrite: 1
     m_Colors:
+    - Color_5D51A26A: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - Color_BCDE69F0: {r: 2.379225, g: 0, b: 0.15342677, a: 0}
-    - Color_E50291A3: {r: 0, g: 7.4518113, b: 0.40252852, a: 1}
+    - Color_E50291A3: {r: 0.65699285, g: 0.2593506, b: 0.10846579, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
