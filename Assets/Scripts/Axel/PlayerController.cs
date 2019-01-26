@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     const int DASHDISTANCE = 3;
     const float DASHSPEED = 40;
     const string WALLLAYER = "Water";
-    const float DASHCOOLDOWN = 1;
+    const float DASHCOOLDOWN = 0;
     const float COMBOTIME = 1;
     const float ATTACKDURATION1 = 1;                //Tiempo que tarda la animación de ataque 1
     const float ATTACKDURATION2 = 1;                //Tiempo que tarda la animación de ataque 2
@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CheckCdHabilities();
-        Debug.DrawRay(transform.position, transform.right * sizeX / 2);
+        Debug.DrawRay(transform.position, transform.right * (sizeX / 2));
+        Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);  
 
 
 
@@ -96,12 +97,26 @@ public class PlayerController : MonoBehaviour
         if (dashing == false)
         {
             Vector3 move = Vector3.zero;
-            velocity.x = 0f;
+            velocity = Vector3.zero;
+            //velocity.x = 0f;
             if (!attacking)
             {
                 if (Input.GetAxis("Horizontal") != 0)
                 {
+                    
                     direction = Input.GetAxis("Horizontal");
+                    if (direction > 0) {
+                        Quaternion rotation = transform.rotation;
+                        rotation.y = 0;
+                        transform.rotation = rotation;
+                    }
+                    else if (direction < 0)
+                    {
+                        Quaternion rotation = transform.rotation;
+                        rotation.y = 180;
+                        transform.rotation = rotation;
+                    }
+
                     velocity.x = Input.GetAxis("Horizontal") * speed;
                 }
             }
@@ -131,30 +146,26 @@ public class PlayerController : MonoBehaviour
         Vector3 position;
         RaycastHit hit;
         //PONER FOR CON VARIOS RAYCAST
-        if (value >= 0)
+
+        if (Physics.Raycast(transform.position, transform.right, out hit, DASHDISTANCE + sizeX / 2, LayerMask.GetMask(WALLLAYER)))
         {
-            if (Physics.Raycast(transform.position, transform.right, out hit, DASHDISTANCE + sizeX / 2, LayerMask.GetMask(WALLLAYER)))
+            position = hit.point;
+            Debug.Log("test");
+            Debug.Log(position.x);
+            if (value >= 0)
             {
-                position = hit.transform.position;
-                position.x = position.x - sizeX;
-                position.y = transform.position.y;
-                return (position);
+                position.x = position.x - sizeX/2;
             }
+            else {
+                position.x = position.x + sizeX/2;
+            }
+            position.y = transform.position.y;
+            return (position);
+        }
+        else {
+            Debug.Log("posicion: " + transform.position.x + " tamaño: " + DASHDISTANCE + " tamaño2 : " + sizeX / 2);
             position = transform.position;
             position += transform.right * DASHDISTANCE;
-            return position;
-        }
-        else
-        {
-            if (Physics.Raycast(transform.position, -transform.right, out hit, DASHDISTANCE + sizeX / 2, LayerMask.GetMask(WALLLAYER)))
-            {
-                position = hit.transform.position;
-                position.x = position.x + sizeX;
-                position.y = transform.position.y;
-                return (position);
-            }
-            position = transform.position;
-            position -= transform.right * DASHDISTANCE;
             return position;
         }
 
