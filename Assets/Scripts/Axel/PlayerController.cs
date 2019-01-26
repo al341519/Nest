@@ -13,11 +13,14 @@ public class PlayerController : MonoBehaviour
     const float ATTACKDURATION2 = 1;                //Tiempo que tarda la animación de ataque 2
     const float ATTACKDURATION3 = 1;                //Tiempo que tarda la animación de ataque 3
     const float DMGTICKTIME = 0.2f;                 //Tiempo que tarda la animación en "aplicar el daño"
-    readonly float[] ATTACKDMG = { 5, 5, 10 };
+    float[] attackDmg = { 5, 5, 10 };
+
 
     const float MOVEMENTSPEED = 0.1f;
+    float maxHealth = 40;
+    float currentHealth;
 
-    Vector3 velocity = Vector3.zero;
+   Vector3 velocity = Vector3.zero;
 
     private float dashTimer;
     private bool dashing;
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
     // protected Rigidbody rb;
     protected CharacterController CharCtrl;
 
+    public bool menu;
 
 
     // Start is called before the first frame update
@@ -53,13 +57,16 @@ public class PlayerController : MonoBehaviour
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x;
         grounded = true;
         CharCtrl = GetComponent<CharacterController>();
-
+        menu = false;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (menu) return;
         CheckCdHabilities();
+
         Debug.DrawRay(transform.position, transform.right * (sizeX / 2));
         Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);  
 
@@ -224,7 +231,7 @@ public class PlayerController : MonoBehaviour
         List<Collider> deadEnemies = new List<Collider>();
         foreach (Collider enemy in enemies)
         {
-            if (enemy.gameObject.GetComponent<Enemy>().receiveDmg(ATTACKDMG[attack - 1]))           //Inflinge al enemigo la cantidad de daño apropiada al ataque attack
+            if (enemy.gameObject.GetComponent<Enemy>().receiveDmg(attackDmg[attack - 1]))           //Inflinge al enemigo la cantidad de daño apropiada al ataque attack
             {
                 deadEnemies.Add(enemy);
             };
@@ -266,4 +273,17 @@ public class PlayerController : MonoBehaviour
         dashing = false;
         dashed = true;
     }
-}
+
+    public void IncreaseDamage(int value)
+    {
+        for(int i = 0; i < attackDmg.Length ; i++) {
+            attackDmg[i] += value;
+        }
+    }
+
+    public void IncreaseHealth(int value)
+    {
+        maxHealth += value;
+    }
+
+ }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class OpenCanvas : MonoBehaviour
 {
     public GameObject canvas;
-    GameObject player;
+    bool player;
     bool open;
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,11 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 canvas.SetActive(true);
+                player = true;
             }
             else if (Input.GetKeyDown(KeyCode.Escape)) {
                 canvas.SetActive(false);
+                player = false;
             }
         }
     }
@@ -32,7 +34,8 @@ public class GameManager : MonoBehaviour
     {
         if (col.gameObject.name == "Player") {
             open = true;
-            player = col.gameObject;
+            player = col.gameObject.GetComponent<PlayerController>().menu;
+            
         }
     }
 
