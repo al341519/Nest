@@ -5,8 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
+    public enum Class {Groot, Kappa, Wisp};
+
     float health = 25;
-    int direction = -1;
+    public int direction = 1;
     float speed =2;
     float sizeX, sizeY;
     float range = 10;
@@ -17,13 +19,27 @@ public class Enemy : MonoBehaviour
     Transform transformPlayer;
     Coroutine attack;
 
+    float flyerOffSet = 0;
+
+    float timeBetweenShoots = 1;
+    float shooterTimer;
+    bool shooted;
+    public GameObject fireBall;
+
     bool stay = false;
+    public Class type;
+
+    
 
 
     float attackTimer;
     // Start is called before the first frame update
     void Start()
     {
+        if(type == Class.Wisp)
+        {
+            flyerOffSet = 3;
+        }
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x/2;
         sizeY = this.gameObject.GetComponent<Collider>().bounds.size.y/2;
 
@@ -36,17 +52,26 @@ public class Enemy : MonoBehaviour
         if (!watched)
         {
             patrol();
-            print("PATROL");
         }
 
         if (watched)
         {
-            Chase();
-            print("CHASE");
+            if(type == Class.Groot)
+            {
+                Chase();
+            }
+            else if(type == Class.Kappa)
+            {
+                Block();
+            }
+            else if(type == Class.Wisp)
+            {
+                Aim();
+            }
 
             enemyWatchedTimer += Time.deltaTime;
             print(enemyWatchedTimer);
-            if (enemyWatchedTimer >= 3)
+            if (enemyWatchedTimer >= 5)
             {
                 watched = false;
                 stay = false;
@@ -60,16 +85,17 @@ public class Enemy : MonoBehaviour
     }
     private void patrol()
     {
+        Debug.DrawRay(transform.position + (sizeX * transform.right), -transform.up);
 
-        if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + 0.2f)&&!stay)
+        if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + 0.2f+ flyerOffSet)&&!stay)
         {
             stay = true;
             StartCoroutine(turn(0.8f));
         }
         RaycastHit hit1;
-        bool hited1 = Physics.Raycast(transform.position + ((sizeY / 2) * transform.right), transform.right, out hit1, range);
+        bool hited1 = Physics.Raycast(transform.position + (((sizeY / 2)) * transform.right), transform.right, out hit1, range);
         RaycastHit hit2;
-        bool hited2 = Physics.Raycast(transform.position - ((sizeY / 2) * transform.right), transform.right, out hit2, range);
+        bool hited2 = Physics.Raycast(transform.position - (((sizeY / 2)) * transform.right), transform.right, out hit2, range);
 
         if (hited1 || hited2)
         {
@@ -101,10 +127,45 @@ public class Enemy : MonoBehaviour
         }
         
     }
+
+
+    private void Block() {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, -transform.right, out hit, range/2))
+        {
+            if (hit.transform.tag == "Player" && !stay)
+            {
+                stay = true;
+                StartCoroutine(turn(0.5f));//delay
+            }
+        }
+        RaycastHit hit1;
+        bool hited1 = Physics.Raycast(transform.position + ((sizeY / 2) * transform.right), transform.right, out hit1, range);
+        RaycastHit hit2;
+        bool hited2 = Physics.Raycast(transform.position - ((sizeY / 2) * transform.right), transform.right, out hit2, range);
+
+        if (hited1 || hited2)
+        {
+            if (hited1 && hit1.transform.tag == "Player" || hited2 && hit2.transform.tag == "Player")
+            {
+                watched = true;
+                if (hited1 && hit1.transform.tag == "Player")
+                {
+                    enemyWatchedTimer = 0;
+                }
+                else
+                {
+                    enemyWatchedTimer = 0;
+                }
+            }
+        }
+    }
+
+
     private void Chase()
     {
         if(attack != null) { return; }
-        stay = false;
         RaycastHit hit;
         if(Physics.Raycast(transform.position,-transform.right, out hit, range))
         {
@@ -120,7 +181,7 @@ public class Enemy : MonoBehaviour
             print(attack != null);
             return;
         }
-        else if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + 0.2f))
+        else if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + flyerOffSet+ 0.2f))
         {
             stay = true;
         }
@@ -157,6 +218,20 @@ public class Enemy : MonoBehaviour
             transform.position = position;
         }
 
+    }
+
+    private void Aim()
+    {
+
+    }
+
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.collider.gameObject.layer == LayerMask.GetMask("Water"))
+        {
+            this.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     IEnumerator DoAttack()
