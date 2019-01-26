@@ -48,7 +48,7 @@ VisualEffect:
       m_Array:
       - m_Value: 1
         m_Name: ParticleSize
-        m_Overridden: 1
+        m_Overridden: 0
       - m_Value: 0
         m_Name: Radius
         m_Overridden: 0
@@ -138,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 2083791709384160207}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.379, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4343312751507984270}
   - {fileID: 381346102425995542}
@@ -329,7 +329,7 @@ VisualEffect:
       m_Array:
       - m_Value: 1
         m_Name: ParticleSize
-        m_Overridden: 1
+        m_Overridden: 0
       - m_Value: 0
         m_Name: Radius
         m_Overridden: 0
