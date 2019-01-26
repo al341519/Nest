@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     const float ATTACKDURATION2 = 1;                //Tiempo que tarda la animación de ataque 2
     const float ATTACKDURATION3 = 1;                //Tiempo que tarda la animación de ataque 3
     const float DMGTICKTIME = 0.2f;                 //Tiempo que tarda la animación en "aplicar el daño"
-    readonly float[] ATTACKDMG = { 5, 5, 10 };
+    public float[] attackDmg = { 5, 5, 10 };
 
     const float MOVEMENTSPEED = 0.1f;
 
@@ -47,14 +47,18 @@ public class PlayerController : MonoBehaviour
     // protected Rigidbody rb;
     protected CharacterController CharCtrl;
 
-    private static int resourceLeaf;
-    private static int resourceBranch;
+    public static int resourceLeaf;
+    public static int resourceBranch;
+
+    public int maxHealth = 50;
+    public int currentHealth;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x;
         grounded = true;
         CharCtrl = GetComponent<CharacterController>();
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour
         if(menu) { return; }
         CheckCdHabilities();
         Debug.DrawRay(transform.position, transform.right * (sizeX / 2));
-        Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);
+        //Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);
 
 
 
@@ -230,7 +234,7 @@ public class PlayerController : MonoBehaviour
         List<Collider> deadEnemies = new List<Collider>();
         foreach (Collider enemy in enemies)
         {
-            if (enemy.gameObject.GetComponent<Enemy>().receiveDmg(ATTACKDMG[attack - 1]))           //Inflinge al enemigo la cantidad de daño apropiada al ataque attack
+            if (enemy.gameObject.GetComponent<Enemy>().receiveDmg(attackDmg[attack - 1]))           //Inflinge al enemigo la cantidad de daño apropiada al ataque attack
             {
                 deadEnemies.Add(enemy);
             };
@@ -283,5 +287,41 @@ public class PlayerController : MonoBehaviour
             resourceBranch += ammount;
         }
     }
+
+    public int getResource(string res)
+    {
+        if (res == "leaf")
+        {
+            return (resourceLeaf);
+        }
+        else if (res == "branch")
+        {
+            return (resourceBranch);
+        }
+        return 0;
+    }
+
+    public void increaseAttack(float ammount)
+    {
+        if (resourceBranch >= 10 && resourceLeaf >= 5)
+        {
+            resourceBranch -= 10;
+            resourceLeaf -= 5;
+            for (int i = 0; i < attackDmg.Length; i++){
+                attackDmg[i] *= ammount;
+            }
+        }
+
+    }
+    public void increaseHealth(int ammount)
+    {
+        if (resourceBranch >= 5 && resourceLeaf >= 10)
+        {
+            resourceBranch -= 5;
+            resourceLeaf -= 10;
+            maxHealth += ammount;
+        }
+    }
+
 }
 
