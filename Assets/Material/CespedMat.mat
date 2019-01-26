@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FloorMat
+  m_Name: CespedMat
   m_Shader: {fileID: 4800000, guid: 64dcfc6c838a52d4aaacafda9be36634, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -108,7 +108,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_10F9601: 7.68
+    - Vector1_10F9601: 3
     - Vector1_AB81A2DE: 0
     - _AORemapMax: 1
     - _AORemapMin: 0
@@ -221,8 +221,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_5D51A26A: {r: 0.5, g: 0.5, b: 0.5, a: 0}
-    - Color_BCDE69F0: {r: 2.379225, g: 0, b: 0.15342677, a: 0}
-    - Color_E50291A3: {r: 0.65699285, g: 0.2593506, b: 0.10846579, a: 1}
+    - Color_BCDE69F0: {r: 0.34292933, g: 1.39539, b: 1.7731957, a: 0}
+    - Color_E50291A3: {r: 0, g: 0.8490566, b: 0.1495122, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
