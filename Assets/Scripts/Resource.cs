@@ -13,13 +13,13 @@ public class Resource : MonoBehaviour
 
     }
 
-    void onTriggerEnter(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if(collider.gameObject.tag == "Player")
         {
-
+            print("Te doy " + resource + " c " + ammount);
             collider.gameObject.GetComponent<PlayerController>().setResource(resource, ammount);
-
+            Destroy(this.gameObject);
 
         }
     }
