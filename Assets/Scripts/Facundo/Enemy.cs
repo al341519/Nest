@@ -5,9 +5,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
+    public enum Class { Groot, Kappa, Wisp };
+
     float health = 25;
-    int direction = -1;
-    float speed =2;
+    public int direction = 1;
+    float speed = 2;
     float sizeX, sizeY;
     float range = 10;
     float minDistance = 1;
@@ -17,7 +19,6 @@ public class Enemy : MonoBehaviour
     Transform transformPlayer;
     Coroutine attack;
 
-<<<<<<< HEAD
     float flyerOffSet = 0;
 
     float distanceShoot = 7;
@@ -26,24 +27,22 @@ public class Enemy : MonoBehaviour
     bool shooted;
     public GameObject fireBall;
 
-=======
->>>>>>> 5bfc1d79c399038479d48e81b95a7bc7f55539c6
     bool stay = false;
+    public Class type;
+
+
 
 
     float attackTimer;
     // Start is called before the first frame update
     void Start()
     {
-<<<<<<< HEAD
-        if(type == Class.Wisp)
+        if (type == Class.Wisp)
         {
             flyerOffSet = 1.5f;
         }
-=======
->>>>>>> 5bfc1d79c399038479d48e81b95a7bc7f55539c6
-        sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x/2;
-        sizeY = this.gameObject.GetComponent<Collider>().bounds.size.y/2;
+        sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x / 2;
+        sizeY = this.gameObject.GetComponent<Collider>().bounds.size.y / 2;
 
     }
 
@@ -54,33 +53,27 @@ public class Enemy : MonoBehaviour
         if (!watched)
         {
             patrol();
-            print("PATROL");
         }
 
         if (watched)
         {
-<<<<<<< HEAD
-            if(type == Class.Groot)
+            if (type == Class.Groot)
             {
                 Chase();
             }
-            else if(type == Class.Kappa)
+            else if (type == Class.Kappa)
             {
                 Block();
             }
-            else if(type == Class.Wisp)
+            else if (type == Class.Wisp)
             {
                 Debug.Log("Test");
                 Aim();
             }
-=======
-            Chase();
-            print("CHASE");
->>>>>>> 5bfc1d79c399038479d48e81b95a7bc7f55539c6
 
             enemyWatchedTimer += Time.deltaTime;
             print(enemyWatchedTimer);
-            if (enemyWatchedTimer >= 3)
+            if (enemyWatchedTimer >= 5)
             {
                 watched = false;
                 stay = false;
@@ -94,18 +87,19 @@ public class Enemy : MonoBehaviour
     }
     private void patrol()
     {
+        Debug.DrawRay(transform.position + (sizeX * transform.right), -transform.up);
 
-        if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + 0.2f)&&!stay)
+        if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + 0.2f + flyerOffSet) && !stay)
         {
             stay = true;
             StartCoroutine(turn(0.8f));
         }
 
-        
+
         RaycastHit hit1;
-        bool hited1 = Physics.Raycast(transform.position + ((sizeY / 2) * transform.right), transform.right, out hit1, range);
+        bool hited1 = Physics.Raycast(transform.position + (((sizeY / 2)) * transform.right), transform.right, out hit1, range);
         RaycastHit hit2;
-        bool hited2 = Physics.Raycast(transform.position - ((sizeY / 2) * transform.right), transform.right, out hit2, range);
+        bool hited2 = Physics.Raycast(transform.position - (((sizeY / 2)) * transform.right), transform.right, out hit2, range);
 
         if (type == Class.Wisp)
         {
@@ -128,7 +122,7 @@ public class Enemy : MonoBehaviour
                 }
             }
             else if ((hited1 && hit1.point.x - transform.position.x < (2 * sizeX) * direction ||
-                hited2 && hit2.point.x - transform.position.x < (2 * sizeX) * direction ) && !stay)
+                hited2 && hit2.point.x - transform.position.x < (2 * sizeX) * direction) && !stay)
             {
                 stay = true;
                 StartCoroutine(turn(0.2f));
@@ -141,28 +135,65 @@ public class Enemy : MonoBehaviour
 
             transform.position = position;
         }
-        
+
     }
-    private void Chase()
+
+
+    private void Block()
     {
-        if(attack != null) { return; }
-        stay = false;
         RaycastHit hit;
-        if(Physics.Raycast(transform.position,-transform.right, out hit, range))
+
+        if (Physics.Raycast(transform.position, -transform.right, out hit, range / 2))
         {
             if (hit.transform.tag == "Player" && !stay)
             {
                 stay = true;
                 StartCoroutine(turn(0.5f));//delay
             }
-        }else if(Physics.Raycast(transform.position, transform.right, out hit, sizeX*3 )) 
+        }
+        RaycastHit hit1;
+        bool hited1 = Physics.Raycast(transform.position + ((sizeY / 2) * transform.right), transform.right, out hit1, range);
+        RaycastHit hit2;
+        bool hited2 = Physics.Raycast(transform.position - ((sizeY / 2) * transform.right), transform.right, out hit2, range);
+
+        if (hited1 || hited2)
+        {
+            if (hited1 && hit1.transform.tag == "Player" || hited2 && hit2.transform.tag == "Player")
+            {
+                watched = true;
+                if (hited1 && hit1.transform.tag == "Player")
+                {
+                    enemyWatchedTimer = 0;
+                }
+                else
+                {
+                    enemyWatchedTimer = 0;
+                }
+            }
+        }
+    }
+
+
+    private void Chase()
+    {
+        if (attack != null) { return; }
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, -transform.right, out hit, range))
+        {
+            if (hit.transform.tag == "Player" && !stay)
+            {
+                stay = true;
+                StartCoroutine(turn(0.5f));//delay
+            }
+        }
+        else if (Physics.Raycast(transform.position, transform.right, out hit, sizeX * 3))
         {
             print("ATACANDO");
             attack = StartCoroutine(DoAttack());
             print(attack != null);
             return;
         }
-        else if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + 0.2f))
+        else if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + flyerOffSet + 0.2f))
         {
             stay = true;
         }
@@ -194,14 +225,13 @@ public class Enemy : MonoBehaviour
         if (!stay)
         {
             Vector3 position = transform.position;
-            position.x += speed*2  * direction * Time.deltaTime;
+            position.x += speed * 2 * direction * Time.deltaTime;
 
             transform.position = position;
         }
 
     }
 
-<<<<<<< HEAD
     private void Aim()
     {
         Debug.Log("Test1");
@@ -213,7 +243,7 @@ public class Enemy : MonoBehaviour
         bool hited2 = Physics.Raycast(transform.position - (flyerOffSet * transform.position), transform.right, out hit2, range);
 
         Debug.DrawRay(transform.position, transform.right * 100);
-        Debug.DrawRay(transform.position - (flyerOffSet/2 * transform.up), transform.right * 100);
+        Debug.DrawRay(transform.position - (flyerOffSet / 2 * transform.up), transform.right * 100);
 
         if (hited1 || hited2)
         {
@@ -242,20 +272,18 @@ public class Enemy : MonoBehaviour
 
             transform.position = position;
         }
-    
+
     }
 
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.collider.gameObject.layer == LayerMask.GetMask("Water"))
+        if (col.collider.gameObject.layer == LayerMask.GetMask("Water"))
         {
             this.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
-=======
->>>>>>> 5bfc1d79c399038479d48e81b95a7bc7f55539c6
     IEnumerator DoAttack()
     {
         do
@@ -264,13 +292,14 @@ public class Enemy : MonoBehaviour
         }
         while (attackTimer < 1);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.right, out hit, sizeX * 2)){
-            if(hit.collider.tag == "Player")
+        if (Physics.Raycast(transform.position, transform.right, out hit, sizeX * 2))
+        {
+            if (hit.collider.tag == "Player")
             {
                 hit.collider.gameObject.GetComponent<PlayerController>().receiveDamage(damage);
             }
         }
-        
+
         attack = null;
         attackTimer = 0;
 
