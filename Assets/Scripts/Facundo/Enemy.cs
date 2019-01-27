@@ -153,6 +153,7 @@ public class Enemy : MonoBehaviour
         {
             if (hit.transform.tag == "Player" && !stay)
             {
+                //CHANGE IDLE IsWalking false
                 stay = true;
                 StartCoroutine(turn(0.5f));//delay
             }

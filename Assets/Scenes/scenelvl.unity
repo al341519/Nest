@@ -280,7 +280,7 @@ Transform:
   m_LocalScale: {x: 20, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &208480885
 PrefabInstance:
@@ -1275,6 +1275,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Huevo
       objectReference: {fileID: 0}
+    - target: {fileID: 579030860, guid: 1346642540f4aae40b6cc843e8b32160, type: 3}
+      propertyPath: m_MaxValue
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 868382183, guid: 1346642540f4aae40b6cc843e8b32160, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.9254513
@@ -1338,10 +1342,6 @@ PrefabInstance:
     - target: {fileID: 1999368540, guid: 1346642540f4aae40b6cc843e8b32160, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 579030860, guid: 1346642540f4aae40b6cc843e8b32160, type: 3}
-      propertyPath: m_MaxValue
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1713221109, guid: 1346642540f4aae40b6cc843e8b32160, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2142,7 +2142,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1321801312
 MonoBehaviour:
