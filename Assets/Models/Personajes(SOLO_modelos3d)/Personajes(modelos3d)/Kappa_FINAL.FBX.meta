@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 96c987fb1cc543f4c8bfa66b08031e04
+guid: 6a989b10dc4571b4fae85865fa7c6df1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,7 @@ ModelImporter:
     2100000: defaultMat
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pj_LP
+    4300000: kappa_FINAL
   externalObjects: {}
   materials:
     importMaterials: 1

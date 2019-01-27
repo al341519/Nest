@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ad70f45de79b3c547b0b3af2a5b87828
+guid: cf9cd29e9a71b584fb824803a9d8d98a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,7 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: tronquito_FINAL
+    4300000: Cylinder001
   externalObjects: {}
   materials:
     importMaterials: 1

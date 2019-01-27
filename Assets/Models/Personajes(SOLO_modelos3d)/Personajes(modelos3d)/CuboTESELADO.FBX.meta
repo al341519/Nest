@@ -1,19 +1,14 @@
 fileFormatVersion: 2
-guid: ada5d6b04df5b524c80e701fb125dad2
+guid: 70ca952e47e55e844a407590a7e13017
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: renawisp_cola
-    100002: //RootNode
-    400000: renawisp_cola
-    400002: //RootNode
+    100000: //RootNode
+    400000: //RootNode
     2100000: No Name
-    2300000: renawisp_cola
-    2300002: //RootNode
-    3300000: renawisp_cola
-    3300002: //RootNode
-    4300000: renawisp_enemy
-    4300002: renawisp_cola
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Box001
   externalObjects: {}
   materials:
     importMaterials: 1

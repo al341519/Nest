@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: a8a80d6709c7885469c99857a2fe063c
+guid: 8cfa7d1248a8fd84fb53c643b6164e11
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: No Name
+    2100000: defaultMat
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Box001
+    4300000: pj_LP
   externalObjects: {}
   materials:
     importMaterials: 1

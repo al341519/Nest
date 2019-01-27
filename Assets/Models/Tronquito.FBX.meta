@@ -1,17 +1,14 @@
 fileFormatVersion: 2
-guid: ed751ca2026506f46ac718b91bd50701
+guid: 4f509106f5ea0cc48b99c9bda488fc87
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Group1
     400000: //RootNode
-    400002: Group1
-    2100000: Group1Mat
-    2300000: Group1
-    3300000: Group1
-    4300000: Group1
-    2186277476908879412: ImportLogs
+    2100000: No Name
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Box001
   externalObjects: {}
   materials:
     importMaterials: 1
