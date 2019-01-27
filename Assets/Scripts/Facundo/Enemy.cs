@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     bool stay = false;
     public Class type;
 
-
+   // Animator anim;
 
 
     float attackTimer;

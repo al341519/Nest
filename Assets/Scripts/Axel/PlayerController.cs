@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour
     const float DASHSPEED = 40;
     const string WALLLAYER = "Water";
     const float DASHCOOLDOWN = 0;
-    const float COMBOTIME = 1;
-    const float ATTACKDURATION1 = 1;                //Tiempo que tarda la animación de ataque 1
-    const float ATTACKDURATION2 = 1;                //Tiempo que tarda la animación de ataque 2
-    const float ATTACKDURATION3 = 1;                //Tiempo que tarda la animación de ataque 3
-    const float DMGTICKTIME = 0.2f;                 //Tiempo que tarda la animación en "aplicar el daño"
+    const float COMBOTIME = 0.2f;
+    const float ATTACKDURATION1 = 0.2f;                //Tiempo que tarda la animación de ataque 1
+    const float ATTACKDURATION2 = 0.2f;                //Tiempo que tarda la animación de ataque 2
+    const float ATTACKDURATION3 = 0.2f;                //Tiempo que tarda la animación de ataque 3
+    const float DMGTICKTIME = 0.1f;                 //Tiempo que tarda la animación en "aplicar el daño"
     public float[] attackDmg = { 5, 5, 10 };
 
     const float MOVEMENTSPEED = 0.1f;
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     float dValue;
     bool gameOver;
 
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour
         dValue = 2;
         currentMat = GetComponent<MeshRenderer>().material;
         //receiveDamage(1);
+
+        anim = GetComponentInChild<Animator>();
 
     }
 
@@ -99,6 +102,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && dashed == false && attacking == false)
             {
+                anim.SetTrigger("Dash");
                 finalDashPosition = useDash(direction);                                                                 //Obtiene la posición final tras el dash
                 if (finalDashPosition != transform.position)
                 {
@@ -109,10 +113,19 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.K) && attacking == false && dashing == false)
             {
+
                 if (comboing)
                 {
                     attacking = true;
                     attackNumber++;
+                    if(attackNumber == 2)
+                    {
+                        anim.SetTrigger("Combo 1");
+                    }
+                    else
+                    {
+                        anim.SetTrigger("Combo 1");
+                    }
                     attackTimer = 0;
                     print("attack: " + attackNumber);
 
@@ -120,6 +133,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    anim.SetTrigger("IsAttacking");
                     attacking = true;
                     attackNumber = 1;
                     print("attack: " + attackNumber);
@@ -134,6 +148,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Input.GetAxis("Horizontal") != 0)
                     {
+                        anim.SetBool("IsWalking", true);
 
                         direction = Input.GetAxis("Horizontal");
                         if (direction > 0)
@@ -151,18 +166,24 @@ public class PlayerController : MonoBehaviour
 
                         velocity.x = Input.GetAxis("Horizontal") * speed;
                     }
+                    else
+                    {
+                        anim.SetBool("IsWalking", false);
+                    }
                 }
                 grounded = CharCtrl.isGrounded;
 
 
                 if (Input.GetButtonDown("Jump") && grounded)
                 {
+                    anim.SetBool("IsJumping", true);
                     grounded = false;
                     velocity.y = jumpSpeed;
                 }
 
                 if (!grounded)
                 {
+                    anim.SetBool("IsJumping", false);
                     velocity.y -= gravity * Time.deltaTime;
 
                 }
@@ -218,6 +239,7 @@ public class PlayerController : MonoBehaviour
         if (attacking || comboing)
         {
             attackTimer += Time.deltaTime;
+            anim.SetFloat("TempCombo", attackTimer);
             //print("Timer = " + attackTimer);
 
             if (attackNumber == 1 && attackTimer >= ATTACKDURATION1)
@@ -348,6 +370,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!dashing)
         {
+            anim.SetTrigger("Hit");
             currentHealth -= damage;
             if (currentHealth <= 0)
             { 
