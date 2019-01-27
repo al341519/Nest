@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: troncoMat
+  m_Name: cespedMat
   m_Shader: {fileID: 4800000, guid: 64dcfc6c838a52d4aaacafda9be36634, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -109,6 +109,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_10F9601: 5.52
+    - Vector1_8C1456BD: 1
     - Vector1_AB81A2DE: 0
     - _AORemapMax: 1
     - _AORemapMin: 0
