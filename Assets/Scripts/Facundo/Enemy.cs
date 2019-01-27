@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     bool stay = false;
     public Class type;
 
-   // Animator anim;
+    Animator anim;
 
 
     float attackTimer;
@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
         }
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x / 2;
         sizeY = this.gameObject.GetComponent<Collider>().bounds.size.y / 2;
+        anim = GetComponentInChildren<Animator>();
 
     }
 
@@ -64,6 +65,7 @@ public class Enemy : MonoBehaviour
             }
             else if (type == Class.Kappa)
             {
+                anim.SetBool("IsWalking", false);
                 Block();
             }
             else if (type == Class.Wisp)
@@ -96,6 +98,8 @@ public class Enemy : MonoBehaviour
         if (!Physics.Raycast(transform.position + (sizeX * transform.right), -transform.up, sizeY + 0.2f + flyerOffSet) && !stay)
         {
             stay = true;
+            if (type != Class.Wisp)
+                anim.SetBool("IsWalking", false);
             StartCoroutine(turn(0.8f));
         }
 
@@ -127,15 +131,21 @@ public class Enemy : MonoBehaviour
                     transformPlayer = hit2.transform;
                 }
             }
-            else if ((hited1 && hit1.point.x - transform.position.x < (2 * sizeX) * direction ||
+           else if ((hited1 && hit1.point.x - transform.position.x < (2 * sizeX) * direction ||
                 hited2 && hit2.point.x - transform.position.x < (2 * sizeX) * direction) && !stay)
             {
-                stay = true;
-                StartCoroutine(turn(0.2f));
+                //stay = true;
+                //if (type != Class.Wisp)
+                  //  anim.SetBool("IsWalking", false);
+                //StartCoroutine(turn(0.2f));
             }
         }
         if (!stay)
         {
+            if (type != Class.Wisp)
+            {
+                anim.SetBool("IsWalking", true);
+            }
             Vector3 position = transform.position;
             position.x += speed * direction * Time.deltaTime;
 
@@ -153,7 +163,6 @@ public class Enemy : MonoBehaviour
         {
             if (hit.transform.tag == "Player" && !stay)
             {
-                //CHANGE IDLE IsWalking false
                 stay = true;
                 StartCoroutine(turn(0.5f));//delay
             }
@@ -182,6 +191,7 @@ public class Enemy : MonoBehaviour
             if (hit.transform.tag == "Player" && !stay)
             {
                 stay = true;
+                anim.SetBool("IsWalking", false);
                 StartCoroutine(turn(0.5f));//delay
             }
         }
@@ -220,10 +230,12 @@ public class Enemy : MonoBehaviour
                 hited2 && hit2.point.x - transform.position.x < (2 * sizeX) * direction)
             {
                 stay = true;
+                anim.SetBool("IsWalking", false);
             }
         }
         if (!stay)
         {
+            anim.SetBool("IsWalking", true);
             Vector3 position = transform.position;
             position.x += speed * 2 * direction * Time.deltaTime;
 
@@ -349,11 +361,14 @@ public class Enemy : MonoBehaviour
     public bool receiveDmg(float dmg)
     {
         health -= dmg;
+        if (type != Class.Wisp)
+            anim.SetTrigger("Hit");
         if (health <= 0)
         {
             return true;
         }
         return false;
+        
     }
 
 }

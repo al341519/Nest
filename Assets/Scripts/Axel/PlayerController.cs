@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         currentMat = GetComponent<MeshRenderer>().material;
         //receiveDamage(1);
 
-        anim = GetComponentInChild<Animator>();
+        anim = GetComponentInChildren<Animator>();
 
     }
 
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        anim.SetTrigger("Combo 1");
+                        anim.SetTrigger("Combo 2");
                     }
                     attackTimer = 0;
                     print("attack: " + attackNumber);
@@ -176,14 +176,14 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetButtonDown("Jump") && grounded)
                 {
-                    anim.SetBool("IsJumping", true);
+                    anim.SetTrigger("Jump");
                     grounded = false;
                     velocity.y = jumpSpeed;
                 }
 
                 if (!grounded)
                 {
-                    anim.SetBool("IsJumping", false);
+
                     velocity.y -= gravity * Time.deltaTime;
 
                 }
