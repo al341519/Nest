@@ -163,6 +163,10 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 2947229123748362607}
+    - target: {fileID: 13700000, guid: 86faaa136e9832449965c81be582797a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 10f6fdf07520fe64198a917db95e27a8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86faaa136e9832449965c81be582797a, type: 3}
 --- !u!4 &2947229123748362607 stripped
@@ -307,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 4739661614616906891, guid: 7fcd320f3bd7c5041a420df3a50e8f5b,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: EnemyGroot
       objectReference: {fileID: 0}
     - target: {fileID: 4739661614616906929, guid: 7fcd320f3bd7c5041a420df3a50e8f5b,
         type: 3}
