@@ -1,34 +1,14 @@
 fileFormatVersion: 2
-guid: eb175272000fb984ca9e2b2f91f2e011
+guid: 251e32c6cc0fa5f44989131e36a290ac
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Groot_cintura
-    100002: //RootNode
-    100004: Groot_piernas
-    100006: Groot_pies
-    100008: Groot_torso
-    400000: Groot_cintura
-    400002: //RootNode
-    400004: Groot_piernas
-    400006: Groot_pies
-    400008: Groot_torso
+    100000: //RootNode
+    400000: //RootNode
     2100000: defaultMat
-    2300000: Groot_cintura
-    2300002: //RootNode
-    2300004: Groot_piernas
-    2300006: Groot_pies
-    2300008: Groot_torso
-    3300000: Groot_cintura
-    3300002: //RootNode
-    3300004: Groot_piernas
-    3300006: Groot_pies
-    3300008: Groot_torso
-    4300000: Groot_cabeza
-    4300002: Groot_torso
-    4300004: Groot_cintura
-    4300006: Groot_piernas
-    4300008: Groot_pies
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: kappa_FINAL
   externalObjects: {}
   materials:
     importMaterials: 1
