@@ -31,5 +31,5 @@ Material:
     - Vector1_66A62ED3: 4.38
     m_Colors:
     - Color_582FBDA7: {r: 2.79544, g: 0.7464264, b: 0, a: 1}
-    - Vector2_BA32116D: {r: -0.21, g: 1.44, b: 0, a: 0}
+    - Vector2_BA32116D: {r: -0.21, g: -1.4, b: 0, a: 0}
     - Vector2_F4F6F0D5: {r: 0.1, g: -0.2, b: 0, a: 0}
