@@ -322,6 +322,16 @@ public class PlayerController : MonoBehaviour
             maxHealth += ammount;
         }
     }
+    public void receiveDamage(int damage)
+    {
+        if (!dashing)
+        {
+            currentHealth -= damage;
+            StopCoroutine("DoAttacks");
+
+
+        }
+    }
 
 }
 
