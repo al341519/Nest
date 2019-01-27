@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -53,16 +54,26 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 50;
     public int currentHealth;
 
+    public Material dissolveMat;
+    Material currentMat;
+    float dValue;
+    bool gameOver;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = maxHealth;// maxHealth;
         sizeX = this.gameObject.GetComponent<Collider>().bounds.size.x;
         grounded = true;
         CharCtrl = GetComponent<CharacterController>();
         menu = false;
+
+        gameOver = false;
+        dValue = 2;
+        currentMat = GetComponent<MeshRenderer>().material;
+        //receiveDamage(1);
+
     }
 
     // Update is called once per frame
@@ -73,80 +84,91 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, transform.right * (sizeX / 2));
         //Debug.Log("posicion " + transform.position.x + " right : " + transform.right.x + "size " + sizeX / 2);
 
-
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashed == false && attacking == false)
+        if (gameOver)
         {
-            finalDashPosition = useDash(direction);                                                                 //Obtiene la posición final tras el dash
-            if (finalDashPosition != transform.position)
+            dValue -= Time.deltaTime;
+           // currentMat.SetFloat("DissolveValue", dValue);
+            if (dValue <= -0.2)
             {
-                StartCoroutine(MoveFromTo(transform, transform.position, finalDashPosition, DASHSPEED));            //Mueve personaje mediante el dash
-
+                //pantalla gameover
+                SceneManager.LoadScene(1);
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.K) && attacking == false && dashing == false)
+        else
         {
-            if (comboing)
-            {
-                attacking = true;
-                attackNumber++;
-                attackTimer = 0;
-                print("attack: " + attackNumber);
 
-                StartCoroutine(DoAttacks(attackNumber));
-            }
-            else
+            if (Input.GetKeyDown(KeyCode.LeftShift) && dashed == false && attacking == false)
             {
-                attacking = true;
-                attackNumber = 1;
-                print("attack: " + attackNumber);
-                StartCoroutine(DoAttacks(attackNumber));
-            }
-        }
-        if (dashing == false)
-        {
-            Vector3 move = Vector3.zero;
-            velocity.x = 0f;
-            if (!attacking)
-            {
-                if (Input.GetAxis("Horizontal") != 0)
+                finalDashPosition = useDash(direction);                                                                 //Obtiene la posición final tras el dash
+                if (finalDashPosition != transform.position)
                 {
+                    StartCoroutine(MoveFromTo(transform, transform.position, finalDashPosition, DASHSPEED));            //Mueve personaje mediante el dash
 
-                    direction = Input.GetAxis("Horizontal");
-                    if (direction > 0)
-                    {
-                        Quaternion rotation = transform.rotation;
-                        rotation.y = 0;
-                        transform.rotation = rotation;
-                    }
-                    else if (direction < 0)
-                    {
-                        Quaternion rotation = transform.rotation;
-                        rotation.y = 180;
-                        transform.rotation = rotation;
-                    }
-
-                    velocity.x = Input.GetAxis("Horizontal") * speed;
                 }
             }
-            grounded = CharCtrl.isGrounded;
 
-
-            if (Input.GetButtonDown("Jump") && grounded)
+            if (Input.GetKeyDown(KeyCode.K) && attacking == false && dashing == false)
             {
-                grounded = false;
-                velocity.y = jumpSpeed;
-            }
+                if (comboing)
+                {
+                    attacking = true;
+                    attackNumber++;
+                    attackTimer = 0;
+                    print("attack: " + attackNumber);
 
-            if (!grounded)
+                    StartCoroutine(DoAttacks(attackNumber));
+                }
+                else
+                {
+                    attacking = true;
+                    attackNumber = 1;
+                    print("attack: " + attackNumber);
+                    StartCoroutine(DoAttacks(attackNumber));
+                }
+            }
+            if (dashing == false)
             {
-                velocity.y -= gravity * Time.deltaTime;
+                Vector3 move = Vector3.zero;
+                velocity.x = 0f;
+                if (!attacking)
+                {
+                    if (Input.GetAxis("Horizontal") != 0)
+                    {
 
+                        direction = Input.GetAxis("Horizontal");
+                        if (direction > 0)
+                        {
+                            Quaternion rotation = transform.rotation;
+                            rotation.y = 0;
+                            transform.rotation = rotation;
+                        }
+                        else if (direction < 0)
+                        {
+                            Quaternion rotation = transform.rotation;
+                            rotation.y = 180;
+                            transform.rotation = rotation;
+                        }
+
+                        velocity.x = Input.GetAxis("Horizontal") * speed;
+                    }
+                }
+                grounded = CharCtrl.isGrounded;
+
+
+                if (Input.GetButtonDown("Jump") && grounded)
+                {
+                    grounded = false;
+                    velocity.y = jumpSpeed;
+                }
+
+                if (!grounded)
+                {
+                    velocity.y -= gravity * Time.deltaTime;
+
+                }
+                CharCtrl.Move(velocity);
             }
-            CharCtrl.Move(velocity);
         }
-
 
     }
 
@@ -327,11 +349,17 @@ public class PlayerController : MonoBehaviour
         if (!dashing)
         {
             currentHealth -= damage;
+            if (currentHealth <= 0)
+            { 
+    //            currentMat = dissolveMat;
+                gameOver = true;
+            }
             StopCoroutine("DoAttacks");
 
 
         }
     }
+
 
 }
 
